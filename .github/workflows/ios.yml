@@ -1,0 +1,15 @@
+name: iOS Archive
+# Opt-in only: no macOS runner is in the fleet yet, so this would queue forever
+# on push. See README "Building for iOS".
+on:
+  workflow_dispatch:
+jobs:
+  archive:
+    runs-on: [self-hosted, macos, arm64, xcode]
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with: { channel: stable }
+      - run: flutter pub get
+      - run: flutter build ipa --release --export-options-plist=ios/ExportOptions.plist

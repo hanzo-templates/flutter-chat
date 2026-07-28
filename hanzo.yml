@@ -1,0 +1,6 @@
+# What CI runs. Only steps a Linux arc runner can genuinely execute —
+# the macOS archive lives in .github/workflows/ios.yml. See README.
+test:
+  - { name: analyze, run: "flutter analyze" }
+  - { name: test, run: "flutter test" }
+  - { name: web-bundle, run: "flutter build web --release" }
